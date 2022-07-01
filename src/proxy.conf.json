@@ -1,0 +1,6 @@
+{
+    "/api/*": {
+        "target": "https://api.stardevcgroup.com:3443",
+        "secure": false
+    }
+}
