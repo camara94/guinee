@@ -1,0 +1,68 @@
+  <!-- Start -->
+  <section >
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-6 mt-2 pt-1 mb-2">
+            <form class="login-form mt-0 mb-3" [formGroup]="boutiqueForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <select [(ngModel)]="id" (chnage)="onChange($event)">
+                    <option *ngFor="let level of boutiques">{{level.nom}}</option>
+                </select> 
+            </form>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12">
+          <div class="table-responsive bg-white shadow">
+            <table class="table table-center table-padding mb-0">
+              <thead>
+                <tr>
+                  <th class="py-3" style="min-width:20px "></th>
+                  <th class="py-3" style="min-width: 300px;">Produit</th>
+                  <th class="text-center py-3" style="min-width: 160px;">Prix</th>
+                  <th class="text-center py-3" style="min-width: 160px;">Quantité</th>
+                  <th class="text-center py-3" style="min-width: 160px;">Total</th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                <tr *ngFor="let item of list">
+                  <td class="h6"><a href="javascript:void(0)" class="text-danger">X</a></td>
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img src="{{item.image}}" class="img-fluid avatar avatar-small rounded shadow" style="height:auto;"
+                        alt="">
+                      <h6 class="mb-0 ml-3">{{item.title}}</h6>
+                    </div>
+                  </td>
+                  <td class="text-center">$ {{item.price}}.00</td>
+                  <td class="text-center">
+                    <input type="button" value="-" class="minus btn btn-icon btn-soft-primary font-weight-bold ml-1"
+                      (click)="decrement(item.id)">
+                    <input type="text" step="1" min="1" name="quantity" value="2" title="Qty" [(ngModel)]="item.qty"
+                      class="btn btn-icon btn-soft-primary font-weight-bold ml-1">
+                    <input type="button" value="+" class="plus btn btn-icon btn-soft-primary font-weight-bold ml-1"
+                      (click)="increase(item.id)">
+                  </td>
+                  <td class="text-center font-weight-bold">${{item.total}}.00</td>
+                </tr>
+  
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!--end col-->
+      </div>
+    </div>
+    <!--end container-->
+  </section>
+  <!--end section-->
+  <!-- End -->
+  
+  
+  <!-- Back to top -->
+  <a class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+  </a>
+  <!-- Back to top -->
+  

@@ -1,0 +1,10 @@
+<div class="card text-center" *ngIf="cmd">
+    <div class="card-body">
+      <p class="card-text">
+        Votre commande a été effectuée avec succès.<br>
+            Vous pouvez contacter ce numéro <strong color="primary"> {{cmd.produit.user.phone}} </strong>
+            Pour le reste de la transaction
+      </p>
+      <a href="#" class="btn btn-primary">Ok</a>
+    </div>
+  </div>
