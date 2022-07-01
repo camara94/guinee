@@ -1,0 +1,10 @@
+.taille-card {
+    height: 300px;
+    padding: 5px;
+}
+
+.taille-img {
+    height: 80px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
