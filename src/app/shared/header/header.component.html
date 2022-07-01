@@ -1,0 +1,254 @@
+<div id="home"></div>
+<!-- Navbar STart -->
+<header id="topnav" class="defaultscroll sticky mb-5" (window:scroll)="windowScroll()" [class]="navClass">
+  <div class="container-fluid">
+    <!-- Logo container-->
+    <img src="assets/logo/jeumakity.png" style="display: inline-block; width: 150px; height: 130px; position: absolute; left: 15px; top:-20px; margin-right: 5px" alt="logo">  
+    
+    <div class="menu-extras">
+      <div class="menu-item">
+        <!-- Mobile menu toggle-->
+        <a class="navbar-toggle" (click)="toggleMenu()" [ngClass]="{'open': isCondensed === true}">
+          <div class="lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </a>
+
+        <!-- End mobile menu toggle-->
+        <div class="buy-button d-none d-sm-block" *ngIf="authService.user != null">
+          <ng-template [ngIf]="navClass === 'nav-light'">
+            <a 
+              (click)="goToAjouterAnnonce()"
+              class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+          <ng-template [ngIf]="navClass !== 'nav-light'">
+              <a 
+              (click)="goToAjouterAnnonce()"
+                class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+        </div>
+        
+         
+        
+        <!-- End mobile menu toggle-->
+        <div class="buy-button d-none d-sm-block" *ngIf="authService.user == null">
+          <ng-template [ngIf]="navClass === 'nav-light'">
+            <a 
+              (click)="login()"
+              class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+          <ng-template [ngIf]="navClass !== 'nav-light'">
+              <a 
+              (click)="login()"
+                class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+            
+        </div>
+
+        <div class="buy-button d-none d-sm-block" *ngIf="authService.user == null">
+         <button routerLink="/sign-up" class="btn btn-warning login-btn-warning btn-sm">
+          <a class="text-sm text-white"><i-feather name="log-in" class="icons"></i-feather></a>  
+          S'inscrire
+         </button>
+        </div>
+        
+    
+      </div>
+    </div>
+
+    <div id="navigation">
+      <!-- Navigation Menu-->
+      <ul class="navigation-menu" [class]="navClass">
+        <li><a routerLink="/" class="nav-link-ref m-0" (click)="toggleMenu()" [ngxScrollTo]="'#home'">Accueil</a></li>
+        <li><a routerLink="/articles" class="nav-link-ref m-0" (click)="toggleMenu()" [ngxScrollTo]="'#home'">Annonces</a></li>
+        <li><a routerLink="/boutiques" class="nav-link-ref m-0" (click)="toggleMenu()" [ngxScrollTo]="'#home'">Boutique</a></li>
+        <li><a routerLink="/aides" class="nav-link-ref m-0" (click)="toggleMenu()" [ngxScrollTo]="'#home'">Aide</a></li>
+        <li><a routerLink="/apropos" class="nav-link-ref m-0" (click)="toggleMenu()" [ngxScrollTo]="'#home'">A propos</a></li>
+        <li><a href="https://forms.gle/VXJmNjJjKoqBNS9WA" target="__blank" (click)="toggleMenu()">Vos avis</a></li>
+        <li class="has-submenu" *ngIf="authService.user != null">
+          <a (click)="onMenuClick($event)">
+            <img class="avatar" src="{{getURL(baseURL, authService.user.avatar)}}" alt="{{authService.user.firstname}}" />
+          </a><span class="menu-arrow d-block d-sm-none" (click)="onMenuClick($event)"></span>
+          <ul class="submenu megamenu">
+            <li>
+              <ul>
+                <li>
+                  <a class="nav-link-ref" (click)="monProfil()" [ngxScrollTo]="'#home'">
+                    <i-feather name="user" class="icons"></i-feather> 
+                    {{' ' + authService.user.firstname + ' ' + authService.user.lastname}}
+                  </a>
+                </li>
+                <li>
+                  <a class="nav-link-ref" (click)="mesProduits(authService.user._id)" [ngxScrollTo]="'#home'">
+                    <i-feather name="info" class="icons"></i-feather> 
+                      Mes Annonces</a>
+                </li>
+                <li *ngIf="false">
+                  <a class="nav-link-ref" routerLink="/index-agency" [ngxScrollTo]="'#home'">
+                    <i-feather name="upload-cloud" class="icons"></i-feather>
+                     Mes Services</a>
+                  </li>
+                <li *ngIf="authService.user.role=='BOUTIQUE'">
+                  <a class="nav-link-ref" routerLink="/mes-boutiques" [ngxScrollTo]="'#home'">
+                    <i-feather name="shopping-bag" class="icons"></i-feather>
+                     Mes Boutiques</a>
+                </li>
+                <li>
+                  <a (click)="logout()" [ngxScrollTo]="'#home'" class="nav-link-ref" [ngxScrollTo]="'#home'">
+                    <i-feather name="log-out" class="icons"></i-feather> 
+                    Deconnexion</a>
+                    
+                </li>
+                
+              </ul>
+            </li>
+            </ul>
+        </li>
+       
+        <li *ngIf="authService.user != null && panier != null">
+          <a  class="h1" routerLink="/panier" >
+            <span class="pan">{{panier.ligneCommandes?.length}}</span>
+            <i class="fas fa-cart-arrow-down fa-lg text-size"></i>
+          </a>
+        </li>
+
+        <li *ngIf="authService.user != null && panier == null">
+          <a  class="h1" routerLink="/boutiques" >
+            <span class="pan">0</span>
+            <i class="fas fa-cart-arrow-down fa-lg text-size"></i>
+          </a>
+        </li>
+
+
+        <li class="has-submenu" *ngIf="authService.user != null">
+          <a (click)="onMenuClick($event)">
+            <span class="pan">{{notifications?.length}}</span>
+            <i class="fas fa-bell fa-lg text-size"></i>
+          </a><span class="menu-arrow d-block d-sm-none" (click)="onMenuClick($event)"></span>
+          <ul class="submenu megamenu">
+            <li>
+              <ul>
+                <li *ngFor="let notification of notifications">
+                  <a class="nav-link-ref" (click)="gotToNotificationPage(notification)"  [ngxScrollTo]="'#home'">
+                    <i-feather name="inbox" class="icons"></i-feather> 
+                    {{' ' + notification.message.substr(0, 25)}}...
+                  </a>
+                </li>
+              </ul>
+            </li>
+            </ul>
+        </li>
+
+
+        
+        <!-- End mobile menu toggle-->
+        <div class="buy-button d-block d-sm-none" *ngIf="authService.user != null">
+          <ng-template [ngIf]="navClass === 'nav-light'">
+            <a 
+              (click)="goToAjouterAnnonce()" [ngxScrollTo]="'#home'"
+              class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+          <ng-template [ngIf]="navClass !== 'nav-light'">
+              <a 
+              (click)="goToAjouterAnnonce()" [ngxScrollTo]="'#home'"
+                class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+        </div>
+
+
+        
+        
+        <!-- End mobile menu toggle-->
+        <div class="buy-button d-block d-sm-none" *ngIf="authService.user == null">
+          <ng-template [ngIf]="navClass === 'nav-light'">
+            <a 
+              (click)="login()" [ngxScrollTo]="'#home'"
+              class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+          <ng-template [ngIf]="navClass !== 'nav-light'">
+              <a 
+              (click)="login()" [ngxScrollTo]="'#home'"
+                class="btn btn-warning login-btn-warning btn-sm ml-1 mr-1"><i-feather name="plus" class="icons"></i-feather> Ajouter une annonce</a>
+          </ng-template>
+            
+        </div>
+        
+
+        <div class="buy-button d-block d-sm-none" *ngIf="authService.user == null">
+          <button routerLink="/sign-up" class="btn btn-warning login-btn-warning btn-sm" [ngxScrollTo]="'#home'" (click)="toggleMenu()">
+           <a class="text-sm text-white"><i-feather name="log-in" class="icons"></i-feather></a>  
+           S'inscrire
+          </button>
+         </div>
+        
+
+      </ul> 
+    </div>
+    <!--end navigation-->
+  </div>
+  <!--end container-->
+</header>
+<!--end header-->
+<!-- Navbar End -->
+
+<div class="pr-5 mb-1 d-sm-block">
+  <!--div class="searchbar mt-5">
+		<input class="search_input" type="text" [(ngModel)]="query" placeholder="Chercher un produit...">
+		<a (click)="searchProduit(query)" class="search_icon"><i class="fa fa-search"></i></a>
+</!--div-->
+<div class="mt-1 d-block d-sm-none"></div>
+
+<div class="container mb-3">
+ <div class="row">
+  <div class="col-12 ml-3">
+    <div class="card border-0 sidebar sticky-bar">
+      <div class="card-body p-0">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 col-md-2 mt-2">
+                <!-- SEARCH -->
+                <select class="form-control m-0" *ngIf="villes" [(ngModel)]="idVille" name="v">
+                  <option [value]="ville._id" *ngFor="let ville of villes">{{ville.ville}}</option>
+                </select>       
+                <!-- SEARCH -->
+              </div>
+              <div class="col-12 col-md-5">
+                <!-- SEARCH -->
+                <div class="widget mt-2">
+                  <div id="search2" class="widget-search m-0">
+                    <form role="search" method="get" id="searchform" class="searchform">
+                        <input type="text" class="border rounded" name="s" id="s" [(ngModel)]="query" placeholder="Chercher un produit...">
+                        <input type="submit" id="searchsubmit" value="Search" (click)="searchProduit(query, idVille)">
+                    </form>
+                  </div>
+                </div>
+                <!-- SEARCH -->
+              </div>
+              <div class="col-12 col-md-4" [hidden]="false">
+                <form class="form-inline mt-2">
+                  <input class="form-control bt col-9" type="file" placeholder="Search" (change)="onChange($event)">
+                  <button class="btn btn-warning" (click)="chercherParFichier()"> <i class="far fa-image"></i> </button>
+                </form>
+              </div>
+              <div class="col-2 col-md-1 mt-2" [hidden]="false">
+                <form class="form-inline">
+                  <button class="btn btn-warning" type="submit" (click)="camera()"> <i class="fa fa-camera"></i> </button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>
+      </div>  
+    </div>
+  </div>
+</div>
+
+
+</div>
+
+<div class="mb-5 pb-3 d-md-block"></div>
+
+
+		  

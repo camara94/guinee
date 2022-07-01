@@ -1,0 +1,121 @@
+ <!-- Footer Start -->
+ <footer class="footer">
+  <div class="container">
+    <div class="row m-0">
+      <div class="col-lg-4 col-12 mb-0 mb-md-4 pb-0 pb-md-2">
+        <a href="#" class="logo-footer">
+         MakityFan
+        </a>
+        <p class="mt-3">
+          MakityFan, notre objectif est de vous pemettre de ventre vos produits et vos Service
+          partout où vous vous trouvez.
+        </p>
+        <ul class="list-unstyled social-icon social mb-0 mt-4">
+          <li class="list-inline-item">
+            <a href="https://www.facebook.com/Stardevcgroup-101730058782988" 
+            target="__blank"
+            class="rounded">
+              <i-feather name="facebook" class="fea icon-sm fea-social"></i-feather>
+            </a></li>
+          <li class="list-inline-item ml-1">
+            <a href="#" class="rounded">
+              <i-feather name="instagram" class="fea icon-sm fea-social"></i-feather>
+            </a></li>
+          <li class="list-inline-item ml-1"><a href="#" class="rounded">
+              <i-feather name="twitter" class="fea icon-sm fea-social"></i-feather>
+            </a></li>
+          <li class="list-inline-item ml-1">
+            <a href="https://www.linkedin.com/in/star-dev-cloud-group-808779212/" 
+            target="__blank"
+            class="rounded">
+              <i-feather name="linkedin" class="fea icon-sm fea-social"></i-feather>
+            </a></li>
+        </ul>
+
+        <div class="buy-button d-block" *ngIf="authService.user == null">
+          <button routerLink="/sign-up" [ngxScrollTo]="'#home'" (click)="toggleMenu()" class="btn btn-warning login-btn-warning btn-sm">
+           <a class="text-sm text-white"><i-feather name="log-in" class="icons"></i-feather></a>  
+           S'inscrire
+          </button>
+         </div>
+        <!--end icon-->
+      </div>
+      <!--end col-->
+
+      <div class="col-lg-4 col-md-6 col-12 mt-2 mt-sm-0 pt-2 pt-sm-0">
+        <h4 class="text-light footer-head">A PROPOS</h4>
+        <ul class="list-unstyled footer-list mt-2">
+          <li><a routerLink="/apropos" class="text-foot"><i class="mdi mdi-chevron-right mr-1" [ngxScrollTo]="'#home'"></i> Apropos de MakityFan</a>
+          </li>
+          <li><a routerLink="/politique-confidentialite" class="text-foot"><i class="mdi mdi-chevron-right mr-1" [ngxScrollTo]="'#home'"></i> Politique de Confidentialité</a>
+          </li>
+          <li><a routerLink="/condition-utilisation" class="text-foot"><i class="mdi mdi-chevron-right mr-1" [ngxScrollTo]="'#home'"></i> Conditions d'utilisation</a></li>
+          <li><a routerLink="/" class="text-foot"><i class="mdi mdi-chevron-right mr-1" [ngxScrollTo]="'#home'"></i> Makity Fan Services</a>
+          </li>
+          
+        </ul>
+      </div>
+      <!--end col-->
+
+      
+      <div class="col-lg-3 col-md-4 col-12 mt-4 mt-sm-0 pt-2 pt-sm-0">
+        <h4 class="text-light footer-head">Newsletter</h4>
+        <p class="mt-4">Inscrivez-vous et recevez les derniers conseils par e-mail.</p>
+        <form>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="foot-subscribe form-group position-relative">
+                <label>Écrivez votre e-mail <span class="text-danger">*</span></label>
+                <i data-feather="mail" class="fea icon-sm icons"></i>
+                <i-feather name="mail" class="fea icon-sm icons"></i-feather>
+                <input type="email" name="email" id="emailsubscribe" class="form-control pl-5 rounded"
+                  placeholder="Votre e-mail : " required>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <input type="submit" id="submitsubscribe" name="send" class="btn btn-soft-primary btn-block"
+                value="S'abonner">
+            </div>
+          </div>
+        </form>
+      </div>
+      <!--end col-->
+    </div>
+    <!--end row-->
+  </div>
+  <!--end container-->
+</footer>
+<!--end footer-->
+<footer class="footer footer-bar mt-0">
+  <div class="container text-center">
+    <div class="row align-items-center">
+      <div class="col-sm-6">
+        <div class="text-sm-left">
+          <p class="mb-0">© {{annee}} MakityFan  <i class="mdi mdi-heart text-danger"></i>.</p>
+        </div>
+      </div>
+      <!--end col-->
+
+      <div class="col-sm-6 mt-2 mt-sm-0 pt-2 pt-sm-0">
+        <ul class="list-unstyled text-sm-right mb-0">
+          <li class="list-inline-item"><a href="#"><img src="assets/images/payments/american-ex.png"
+                class="avatar avatar-ex-sm" title="American Express" alt=""></a></li>
+          <li class="list-inline-item ml-1"><a href="#"><img src="assets/images/payments/discover.png"
+                class="avatar avatar-ex-sm" title="Discover" alt=""></a></li>
+          <li class="list-inline-item ml-1"><a href="#"><img
+                src="assets/images/payments/master-card.png" class="avatar avatar-ex-sm" title="Master Card"
+                alt=""></a></li>
+          <li class="list-inline-item ml-1"><a href="#"><img src="assets/images/payments/paypal.png"
+                class="avatar avatar-ex-sm" title="Paypal" alt=""></a></li>
+          <li class="list-inline-item ml-1"><a href="#"><img src="assets/images/payments/visa.png"
+                class="avatar avatar-ex-sm" title="Visa" alt=""></a></li>
+        </ul>
+      </div>
+      <!--end col-->
+    </div>
+    <!--end row-->
+  </div>
+  <!--end container-->
+</footer>
+<!--end footer-->
+<!-- Footer End -->
