@@ -1,0 +1,102 @@
+<div class="back-to-home rounded d-none d-sm-block">
+    <a routerLink="/index" class="btn btn-icon btn-soft-warning">
+      <i-feather name="home" class="icons"></i-feather>
+    </a>
+  </div>
+  <!-- Hero Start -->
+  <section class="bg-home">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 col-md-6">
+              <div class="col-lg-12">
+                <h6 class="text-warning">Ou connectez-vous avec</h6>   
+                 <div class="container-fluid">
+                   <div class="row">
+                     <div class="col-12 col-sm-6 mb-1">
+                      <button class="btn btn-facebook btn-sm mb-2" (click)="loginWithFacebook()">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                         <span class="ml-2">Continuer avec Facebook</span>
+                      </button>
+                     </div>
+                     <div class="col-12 col-sm-6 mb-1">
+                      <button class="btn btn-google btn-sm bgc mb-2" (click)="loginWithGoogle()">
+                        <i class="fab fa-google fa-lg"></i>
+                        <span class="ml-2">Continuer avec Google</span>
+                      </button>
+                     </div>
+                   </div>
+                 </div>
+              </div>
+            
+            <img src="assets/business2.jpg" class="img-fluid d-block mx-auto" alt="">
+         
+        </div>
+        <div class="col-lg-5 col-md-6">
+          <div class="card login-page bg-white shadow rounded border-0 taille-card">
+            <div class="card-body">
+              <h4 class="card-title text-center btn-warning text-white rond">Connexion</h4>
+              <form class="login-form mt-0" [formGroup]="compteForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row" *ngIf="nombreSoumission>0">
+                  <div class="text-danger text-center ml-3">Identifiant et mot de passe ne correspond pas</div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group position-relative">
+                        <div class="col-12" style="color:red" *ngIf="compteForm.get('username') && formErrors.username">
+                            <ul *ngFor="let emailValid of formErrors.username.split('.')">
+                              <li *ngIf="emailValid.length>1">{{emailValid}}</li>
+                            </ul>
+                        </div>
+                      <label>Votre e-mail <span class="text-danger">*</span></label>
+                      <i-feather name="username" class="fea icon-sm icons"></i-feather>
+                      <input type="email"  class="form-control pl-5" placeholder="Votre e-mail" formControlName="username" required="">
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-12">
+                    <div class="form-group position-relative">
+                        <div class="col-12" style="color:red" *ngIf="compteForm.get('password') && formErrors.password">
+                            {{formErrors.password}}</div>
+                      <label>Mot de passe <span class="text-danger">*</span></label>
+                      <i-feather name="key" class="fea icon-sm icons"></i-feather>
+                      <input type="password" formControlName="password" class="form-control pl-5" placeholder="Mot de passe" required="">
+                    </div>
+                  </div>
+  
+                  <div class="col-lg-12">
+                    <div class="d-flex justify-content-between">
+                      <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="customCheck1">
+                          <label class="custom-control-label" for="customCheck1">Se rappelez de moi</label>
+                        </div>
+                      </div>
+                      <p class="forgot-pass mb-0">
+                        <a (click)="verifyPassword()"
+                          [ngClass]="{'font-weight-bold': true, 'text-danger': nombreSoumission>0}">Mot de passe oublié ?</a></p>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 mb-0">
+                    <button class="btn btn-warning btn-block">S'identifier</button>
+                  </div>
+                 
+                  <div class="col-12 text-center">
+                    <p class="mb-0 mt-1"><small class="text-dark mr-2">Vous n'avez pas de compte ? </small> <a
+                        routerLink="/sign-up" class="font-weight-bold text-warning">S'inscrire</a></p>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!---->
+        </div>
+       
+        <!--end col-->
+      </div>
+      <!--end row-->
+    </div>
+    <!--end container-->
+  </section>
+  <!--end section-->
+  <!-- Hero End -->
+  
