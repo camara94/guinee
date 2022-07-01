@@ -1,0 +1,172 @@
+  <div class="container"  *ngIf="produit != null" id="home">
+    <div class="row">
+      <div class="col-md-5">
+
+        <div class="slider slider-for">
+          <div><img src="{{baseURL + produit.images[0]}}" id="expandedImg" class="img-fluid cam-image rounded" alt="{{produit.designation}}">
+          </div>
+        </div>
+        <div class="slider slider-nav mt-2 d-flex">
+          <div *ngFor="let image of produit.images">
+              <img src="{{baseURL + image}}" (click)="imageShow($event)" class="img-fluid zoom" alt="">
+          </div>
+          
+        </div>
+      </div>
+      <!--end col-->
+
+      <div class="col-md-7">
+        <div class="section-title">
+          <h4 class="title h6">{{produit.designation}}</h4>
+          <h6 class="text-muted small font-italic mb-0 mt-1 text-primary">Publié le{{' '}}{{produit.updatedAt | date:'dd/MM/yyyy hh:mm a'}}</h6>
+          <h5 class="text-muted h6">{{produit.prix }} GNF&nbsp;&nbsp;<del class="text-danger">{{produit.prix + tva(produit) }}  GNF</del> </h5>
+          <ul class="list-unstyled text-warning mb-0">
+            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+            <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+          </ul>
+
+          <h5 class="h6">Description :</h5>
+          <p class="text-muted">{{produit.description}}</p>
+
+          <h5 class="h6">Ville :</h5>
+          <div class="text-muted ml-2" *ngIf="produit.ville != undefined">
+            {{produit.ville.ville}}, {{produit.adresse}}
+          </div>
+
+
+          <div class="row mt-4 pt-2 mdi">
+            <div class="col-12" *ngIf="produit.tailles.length>0">
+              <div class="d-flex align-items-center">
+                <h6 class="mb-0">Taille:</h6>
+                <ul class="list-unstyled mb-0 ml-3">
+                  <li *ngFor="let taille of produit.tailles"
+                   class="list-inline-item ml-1"><a class="btn btn-icon btn-soft-primary" style="width: 100px;">{{taille}}</a></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="col-12 mt-3">
+              <div class="d-flex shop-list align-items-center">
+                <h6 class="mb-0">Quantité:</h6> <span>&nbsp;{{produit.quantite}}</span>
+            </div>
+            </div>
+            <!--end col-->
+
+            <div class="col-12 mt-3">
+              <div class="d-flex shop-list align-items-center">
+                <h6 class="mb-0">Quantité commandée:</h6> <span>&nbsp;&nbsp;</span>
+                
+                  <input [disabled]="quantite==1" type="button" value="-" class="minus btn btn-icon btn-soft-primary font-weight-bold"
+                    (click)="decrement(produit)">
+                  <input type="text" step="1" min="1" name="quantity" value="1" title="Qty" [(ngModel)]="quantite"
+                    class="btn btn-icon btn-soft-primary font-weight-bold ml-1">
+                  <input [disabled]="produit.quantite <= 0" type="button" value="+" class="plus btn btn-icon btn-soft-primary font-weight-bold ml-1"
+                    (click)="increase(produit)">
+                </div><br>&nbsp;&nbsp;
+                <button class="btn btn-warning btn-lg" (click)="addPanier(produit._id, quantite)" >Ajouter Au panier</button>
+              
+            </div>
+            <!--end col-->
+          </div>
+          <!--end row-->
+          <div class="container-fluid" *ngIf="produit.user" >
+            <div class="row mt-2">
+              <div class="col-12">
+                <a  class="btn btn-primary" (click)="afficherAnnonceurInfoMethode()">Contact de l'annonceur</a>
+                <ul class="list-unstyled text-muted ml-2" *ngIf="afficherAnnonceurInfo">
+                  <li class="mb-0 mt-2"><span class="text-primary"><i class="uim uim-check-circle"></i></span> {{produit.user.firstname + ' ' + produit.user.lastname}}</li>
+                  <li class="mb-0" *ngIf="produit.user.email != null"><span class="text-primary h5 mr-2"><i class="fa fa-envelope text-danger"></i></span>{{': ' + produit.user.email}}</li>
+                  <li class="mb-0" *ngIf="produit.user.phone.length>0"><span class="text-primary h5 mr-2"><i class="fa fa-phone text-warning"></i></span>{{': ' + produit.user.phone}}</li>
+                  <li class="mb-0" *ngIf="produit.contact.length>0"><span class="text-primary h5 mr-2"><i class="fa fa-phone text-warning"></i></span>{{': ' + produit.contact}}</li>
+                </ul>
+              </div>
+              <div class="col-12 col-md-6" *ngIf="ownerProduit">
+                <button class="btn btn-info btn-sm" (click)="vaModifierProduit(produit._id)">
+                  Modifier
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--end col-->
+    </div>
+    <!--end row-->
+  </div>
+  <!--end container-->
+
+  <div class="container mt-2" *ngIf="produits != null && produits.length > 0">
+    <div class="row">
+      <div class="col-12">
+        <h6 class="mb-0 text-primary h5 text-warning">Produits connexes</h6>
+      </div>
+      <!--end col-->
+
+      <div class="col-12 mt-4">
+        <owl-carousel-o id="customer-test" [options]="customOptions">
+          <ng-template carouselSlide *ngFor="let produit of produits | slice: (page-1) * pageSize : page * pageSize">
+            <div class="card shop-list border-0 position-relative overflow-hidden m-2">
+              <div class="shop-image position-relative overflow-hidden rounded shadow">
+                <a (click)="getProduitById(produit?._id)" [ngxScrollTo]="'#home'"><img src="{{baseURL + produit.images[0]}}" class="img-fluid taille"
+                    alt="{{produit.designation}}"></a>
+                <a (click)="getProduitById(produit?._id)" [ngxScrollTo]="'#home'" class="overlay-work">
+                  <img *ngIf="produit.images.length>1" src="{{baseURL + produit.images[1]}}" class="img-fluid taille" alt="{{produit.designation}}">
+                  <img *ngIf="produit.images.length==1" src="{{baseURL + produit.images[0]}}" class="img-fluid taille" alt="{{produit.designation}}">
+                </a>
+                <ul class="list-unstyled shop-icons">
+                  <li><a  class="btn btn-icon btn-pills btn-soft-danger">
+                      <i-feather name="heart" class="icons"></i-feather>
+                    </a></li>
+                  <li class="mt-2"><a [ngxScrollTo]="'#home'" (click)="getProduitById(produit._id)" class="btn btn-icon btn-pills btn-soft-primary">
+                      <i-feather name="eye" class="icons"></i-feather>
+                    </a></li>
+                  <li class="mt-2"><a [ngxScrollTo]="'#home'" (click)="getProduitById(produit._id)" class="btn btn-icon btn-pills btn-soft-warning">
+                      <i-feather name="shopping-cart" class="icons"></i-feather>
+                    </a></li>
+                </ul>
+              </div>
+              <div class="card-body content pt-4 p-2">
+                <a [routerLink]="['/produits/', produit._id]" class="text-dark product-name h6">{{produit.designation}}</a>
+                <h6 class="text-muted small font-italic mb-0 mt-1 text-primary">Publié le{{' '}}{{produit.updatedAt | date:'dd/MM/yyyy'}}</h6>
+                <div class="d-flex justify-content-between mt-1">
+                  <h6 class="text-muted small font-italic mb-0 mt-1">{{produit.prix | prix}} GNF<br><del class="text-danger">{{produit.prix + tva(produit) | prix}} GNF</del></h6>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </owl-carousel-o>
+        <div class="container mt-3">
+          <div class="row">
+            <div class="col-10 col-sm-8 offset-sm-4">
+              <div *ngIf="produits.length>0">
+                <ngb-pagination
+                [(page)]="page"
+                [pageSize]="pageSize"
+                [collectionSize]="produits.length"></ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+      <!--end col-->
+    </div>
+    <!--end row-->
+  </div>
+  <!--end container-->
+<!--end section-->
+<div class="text-center mt-5" *ngIf="produit==null">
+  <div class="spinner-border text-warning" role="status">
+    <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+<!-- Back to top -->
+<a class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+  [ngxScrollTo]="'#home'">
+  <i-feather name="arrow-up" class="icons"></i-feather>
+</a>
+<!-- Back to top -->

@@ -1,0 +1,136 @@
+
+    <div class="container" id="home">
+      <div class="row" *ngIf="category">
+        <!--div class="col-lg-3 col-md-4 col-12">
+          <div class="card border-0 sidebar sticky-bar">
+            <div class="card-body p-0">
+              
+              <div class="widget">
+                <div id="search2" class="widget-search mb-0">
+                  <form role="search" method="get" id="searchform" class="searchform">
+                    <div>
+                      <input type="text" class="border rounded" name="s" id="s" [(ngModel)]="query" placeholder="Chercher un produit...">
+                      <input (click)="searchProduit(query)" type="submit" id="searchsubmit" value="Search">
+                    </div>
+                  </form>
+                </div>
+              </div>
+             
+            </div>
+          </div>
+        </!--div-->
+        <!--end col-->
+  
+        <div class="col-12">
+          <div class="row">
+            <div class="col-lg-9 col-md-7 text-center">
+              <div class="section-title" *ngIf="category != null">
+                <h5 class="mb-0 text-warning">Catégory: {{category.nom}}</h5>
+              </div>
+            </div>
+            <!--end col-->
+  
+            <!--div class="col-lg-3 col-md-5 mt-4 mt-sm-0 pt-2 pt-sm-0">
+              <div class="form custom-form">
+                <div class="form-group mb-0">
+                  <select class="form-control custom-select" id="Sortbylist-job">
+                    <option>Sort by latest</option>
+                    <option>Sort by popularity</option>
+                    <option>Sort by rating</option>
+                    <option>Sort by price: low to high</option>
+                    <option>Sort by price: high to low</option>
+                  </select>
+                </div>
+              </div>
+            </!--div-->
+            <!--end col-->
+          </div>
+          <!--end row-->
+  
+          <div class="row" *ngIf="produitsParCategory != null">
+            <ng-container *ngIf="produitsParCategory?.length>0">
+              <div class="col-12 col-md-3 mt-4 pt-2" 
+            *ngFor="let produit of produitsParCategory | slice: (page-1) * pageSize : page * pageSize">
+              <div class="card shop-list border-0 position-relative overflow-hidden">
+                <div class="shop-image position-relative overflow-hidden rounded shadow">
+                  <a [routerLink]="['produits/', produit._id]">
+                    <img src="{{baseURL + produit.images[0]}}" 
+                      class="img-fluid image"
+                      alt="{{produit.designation}}"></a>
+                      <a *ngIf="produit.images !== undefined" [routerLink]="['/produits/', produit._id]" class="overlay-work">
+                        <img *ngIf="produit.images.length>1" src="{{baseURL + produit.images[1]}}" class="img-fluid image" alt="{{produit.designation}}">
+                        <img *ngIf="produit.images.length==1" src="{{baseURL + produit.images[0]}}" class="img-fluid image" alt="{{produit.designation}}">
+                      </a>
+                  <ul class="list-unstyled shop-icons">
+                    <li><a href="javascript:void(0)" class="btn btn-icon btn-pills btn-soft-danger">
+                        <i-feather name="heart" class="icons"></i-feather>
+                      </a></li>
+                    <li class="mt-2"><a [routerLink]="['produits/', produit._id]" class="btn btn-icon btn-pills btn-soft-primary">
+                        <i-feather name="eye" class="icons"></i-feather>
+                      </a></li>
+                    <li class="mt-2"><a [routerLink]="['produits/', produit._id]" class="btn btn-icon btn-pills btn-soft-warning">
+                        <i-feather name="shopping-cart" class="icons"></i-feather>
+                      </a></li>
+                  </ul>
+                </div>
+                <div class="card-body content pt-4 p-2">
+                    <a routerLink="/shop-product-detail" class="text-dark product-name h6">{{produit.designation}}</a>
+                    <h6 class="text-muted small font-italic mb-0 mt-1 text-primary">Publié le{{' '}}{{produit.updatedAt | date:'dd/MM/yyyy hh:mm a'}}</h6>
+                    <div class="d-flex justify-content-between mt-1">
+                      <h6 class="text-muted small font-italic mb-0 mt-1">{{produit.prix | prix}} GNF<del class="text-danger ml-2">{{ produit.prix + tva(produit) | prix}} GNF</del>
+                      </h6><br>
+                      <ul class="list-unstyled text-warning mb-0">
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                        <li class="list-inline-item"><i class="mdi mdi-star"></i></li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <!--end col-->
+            </ng-container>
+            <ng-container *ngIf="produitsParCategory.length==0">
+              <h3 class="mt-3">
+                {{'Aucune Annonce pour la catégory: ' + category.nom + ' pour l\'instant'}}
+              </h3>
+            </ng-container>
+  
+            <!-- PAGINATION START -->
+            <div class="container mt-3">
+				<div class="row">
+					<div class="col-10 col-sm-8 offset-sm-4">
+						<div *ngIf="produitsParCategory.length>0">
+							<ngb-pagination
+							[(page)]="page"
+							[pageSize]="pageSize"
+							[collectionSize]="produitsParCategory.length"></ngb-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+            <!--end col-->
+            <!-- PAGINATION END -->
+          </div>
+          <!--end row-->
+        </div>
+        <!--end col-->
+      </div>
+     
+  
+  <!--end section-->
+  <!-- End Products -->
+
+  <div class="text-center mt-5" *ngIf="produitsParCategory==null">
+    <div class="spinner-border text-warning" role="status">
+      <span class="sr-only">Loading...</span>
+      </div>
+  </div>
+  
+  <!-- Back to top -->
+  <a href="#" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+  </a>
+  <!-- Back to top -->
+   
+  
