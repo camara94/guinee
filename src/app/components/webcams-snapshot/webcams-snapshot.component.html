@@ -1,0 +1,24 @@
+<div class="camera-capture">
+    <div class="g-image">
+      <img src="./assets/who_is.png"/>
+    </div>
+  
+    <video *ngIf="enabled" #video id="video" width="640" height="480" autoplay></video>
+    <canvas #canvas id="canvas" width="640" height="480"></canvas>
+  
+    <div class="g-button d-none d-lg-block">
+      <button class="black  btn btn-warning btn-sm" (click)="executeButtonAction()"> <i class="fa fa-camera"></i> {{ getButtonName() }}</button>
+      &nbsp;&nbsp;
+      <button class="btn  btn-danger btn-sm" (click)="fermer()"> &times; Fermer la caméra</button>
+    </div>
+
+    <div class="g-button d-block d-lg-none">
+        <button class="black btn btn-warning btn-sm" (click)="mobileInput.click()"> <i class="fa fa-camera"></i> {{ getMobileName() }}</button>
+        &nbsp;&nbsp;
+        <button class="btn  btn-danger btn-sm" (click)="fermer()"> <i class="fas fa-times-circle"></i> Fermer la caméra</button>
+      </div>
+  
+    <div class="mobile-capture">
+      <input #mobileInput type="file" accept="image/*" id="capture" capture="camera" (change)="onFileSelected($event)"/>
+    </div>
+  </div>
