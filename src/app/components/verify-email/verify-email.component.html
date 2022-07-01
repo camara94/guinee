@@ -1,0 +1,46 @@
+<div class="back-to-home rounded d-none d-sm-block">
+    <a routerLink="/index" class="btn btn-icon btn-soft-warning">
+      <i-feather name="home" class="icons"></i-feather>
+    </a>
+  </div>
+
+  <section class="bg-home d-flex align-items-center">
+    <div class="container mt-5 pt-3">
+      <div class="row align-items-center">
+        <div class="col-12">
+          <div class="card login-page bg-white shadow rounded border-0 taille-card">
+            <div class="card-body">
+              <form class="login-form mt-0" [formGroup]="compteForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+                <div class="row" *ngIf="msgError">
+                  <div class="text-danger text-center ml-3">Aucun utilisateur correspondant à cet email ?</div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="form-group position-relative">
+                        <div class="col-12" style="color:red" *ngIf="compteForm.get('username') && formErrors.username">
+                            {{formErrors.username}}</div>
+                      <label>Votre e-mail <span class="text-danger">*</span></label>
+                      <i-feather name="mail" class="fea icon-sm icons"></i-feather>
+                      <input type="email"  class="form-control pl-5" placeholder="Votre e-mail" formControlName="email" required="">
+                    </div>
+                  </div>
+  
+                  
+                  <div class="col-12 mb-0">
+                    <button class="btn btn-warning text-center" [disabled]="compteForm.invalid">Verifier votre email</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!---->
+        </div>
+        <!--end col-->
+      </div>
+      <!--end row-->
+    </div>
+    <!--end container-->
+  </section>
+  <!--end section-->
+  <!-- Hero End -->
+  
