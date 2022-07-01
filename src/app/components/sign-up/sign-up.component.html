@@ -1,0 +1,172 @@
+<div class="back-to-home rounded d-none d-sm-block">
+  <a routerLink="/index" class="btn btn-icon btn-soft-warning">
+    <i-feather name="home" class="icons"></i-feather>
+  </a>
+</div>
+<div class="p-2 m-2 d-sm-none d-md-block"></div>
+
+<!-- Hero Start -->
+<section class="bg-home d-flex align-items-start">
+  <div class="container">
+    <div class="row align-items-start">
+
+      <div class="col-12 col-md-3">
+        <div class="col-lg-12">
+          <h6 class="text-warning">Ou inscrivez-vous avec</h6>   
+           <div class="container-fluid">
+             <div class="row">
+               <div class="col-12 mb-1">
+                <button class="btn btn-facebook btn-sm" (click)="loginWithFacebook()">
+                  <i class="fab fa-facebook-f fa-lg"></i>
+                   <span class="ml-2">Continuer avec Facebook</span>
+                </button>
+               </div>
+               <div class="col-12">
+                <button class="btn btn-google btn-sm" (click)="loginWithGoogle()">
+                  <i class="fab fa-google fa-lg couleur"></i>
+                  <span class="ml-2">Continuer avec Google</span>
+                </button>
+               </div>
+             </div>
+           </div>
+        </div>
+        <!--end icon-->
+      </div>
+
+      <div class="col-12 col-md-9 mt-1">
+        
+        <div class="card login-page bg-white shadow rounded border-0 taille-card">
+          <div class="card-body">
+            <h4 class="card-title text-center btn-warning text-white rond rounded">S'inscrire</h4>
+            <form class="login-form mt-0" [formGroup]="compteForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+
+                <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group position-relative">
+                    
+                    <label>Votre Prénom <span class="text-danger">*</span></label>
+                    <i-feather name="user" class="fea icon-sm icons"></i-feather>
+                    <input type="text"  class="form-control pl-5" placeholder="Votre Prénom" formControlName="firstname" required="">
+                    <div class="mt-2" style="color:red" *ngIf="compteForm.get('firstname') && formErrors.firstname">
+                      {{formErrors.firstname}}</div>
+                  </div>    
+                 </div>
+
+                  <div class="col-12 col-sm-6 m-0">
+                      <div class="form-group position-relative">
+                        
+                        <label>Votre Nom <span class="text-danger">*</span></label>
+                        <i-feather name="user" class="fea icon-sm icons"></i-feather>
+                        <input type="text"  class="form-control pl-5" placeholder="Votre Nom" formControlName="lastname" required="">
+                        <div class="mt-2" style="color:red" *ngIf="compteForm.get('lastname') && formErrors.lastname">
+                          {{formErrors.lastname}}</div>
+                      </div>    
+                  </div>
+                   
+
+                <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group position-relative">
+                     
+                    <label>Votre e-mail <span class="text-danger">*</span></label>
+                    <i-feather name="mail" class="fea icon-sm icons"></i-feather>
+                    <input type="email"  class="form-control pl-5" placeholder="Votre e-mail" formControlName="username" required="">
+                    <div class="mt-2" style="color:red;" *ngIf="compteForm.get('username') && formErrors.username">
+                      {{formErrors.username}}</div>
+                  </div>
+                 
+                </div>
+
+                <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group">
+                    <label>Votre e-mail Confirmation <span class="text-danger">*</span></label>
+                    <i-feather name="mail" class="fea icon-sm icons"></i-feather>
+                    <input type="email"  class="form-control pl-5" placeholder="Votre e-mail" formControlName="usernameConfirmation" required="">
+                    <div class="mt-2" style="color:red" *ngIf="compteForm.get('usernameConfirmation').hasError('matching')">
+                      {{'La confirmation doit être conforme'}}</div>
+                  </div>
+                </div>
+                
+                <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group">
+                    <label>Votre Téléphone <span class="text-danger">*</span></label>
+                    <i-feather name="phone" class="fea icon-sm icons"></i-feather>
+                    <input type="text"  class="form-control pl-5" placeholder="Votre Téléphone" formControlName="phone" required="">
+                    <div class="mt-2" style="color:red" *ngIf="compteForm.get('phone') && formErrors.phone">
+                      {{formErrors.phone}}</div>
+                  </div>
+              </div>
+
+              <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group">
+                    <label>Genre </label>
+                    <i-feather name="sex" class="fea icon-sm icons"></i-feather>
+                    <select  class="form-control pl-5" formControlName="gender">
+                      <option>M</option>
+                      <option>F</option>
+                      <option>Autre</option>
+                    </select>
+                  </div>
+              </div>
+
+              <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group">
+                    <label>Mot de passe <span class="text-danger">*</span></label>
+                    <i-feather *ngIf="afficherPassword==false" (click)="afficherMotDePasse()" name="eye-off" class="fea icon-sm icons"></i-feather>
+                    <i-feather *ngIf="afficherPassword==true"  (click)="masquerMotDePasse()" name="eye" class="fea icon-sm icons"></i-feather>
+                    <input [type]="afficherPassword?'password':'text'" formControlName="password" class="form-control pl-5" placeholder="Mot de passe" required="">
+                    <div class="mt-2" style="color:red" *ngIf="compteForm.get('password') && formErrors.password">
+                     <ul>
+                      <li *ngFor="let it of formErrors.password.split('-')">
+                        {{it}}
+                      </li>
+                     </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-sm-6 m-0">
+                  <div class="form-group">
+                     
+                    <label>La confirmation du mot de passe <span class="text-danger">*</span></label>
+                    <i-feather *ngIf="afficherPassword==false" (click)="afficherMotDePasse()" name="eye-off" class="fea icon-sm icons"></i-feather>
+                    <i-feather *ngIf="afficherPassword==true"  (click)="masquerMotDePasse()" name="eye" class="fea icon-sm icons"></i-feather>
+                    <input [type]="afficherPassword?'password':'text'" formControlName="confirmPassword" class="form-control pl-5" placeholder="Confirmation" required="">
+                    <div class="col-12" style="color:red" *ngIf="compteForm.get('confirmPassword').hasError('matching')">
+                      {{'La confirmation doit être conforme au mot de passe'}}</div>
+                  </div>
+                </div>
+                <!--iv class="col-12 m-0">
+                  <div class="container">
+                    <div class="row">
+                      <label class="col-4">Photo de profil </label> 
+                      <div class="form-group">  
+                        <input type="file" (change)="fileChanged($event)" class="form-control mb-1 col-8"
+                                    name="avatar" formControlName="avatar">
+                      </div>
+                    </div>
+                  </div>
+                </iv-->
+
+                
+                <div class="col-12 mb-0">
+                  <button class="btn btn-warning btn-block" [disabled]="compteForm.invalid">S'inscrire</button>
+                </div>
+
+                <div class="col-12 text-center">
+                  <p class="mb-0 mt-1 mb-3"><small class="text-dark mr-2">Vous avez un compte ?</small> <a
+                      routerLink="/login" class="font-weight-bold text-warning">Login</a></p>
+                </div>
+               
+              </div>
+            </form>
+          </div>
+        </div>
+        <!---->
+      </div>
+      <!--end col-->
+    </div>
+    <!--end row-->
+  </div>
+  <!--end container-->
+</section>
+<!--end section-->
+<!-- Hero End -->

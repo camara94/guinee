@@ -1,0 +1,16 @@
+ .btn-facebook {
+    background-color: #3B5998;
+    display: inline-block;
+    width: 100%;
+    color: floralwhite;
+    margin: 0px auto;
+  }
+
+
+.btn-google {
+  background-color: #DD4B37;
+  display: inline-block;
+  width: 100%;
+  color: floralwhite;
+  margin: 0px auto;
+}

@@ -1,0 +1,22 @@
+<button type="button" mdbBtn color="primary" class="relative waves-light text-center" (click)="basicModal.show()" mdbWavesEffect>Lancer Le Modal</button>
+<div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="relance()">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title w-100" id="myModalLabel">Supprimer Produit</h4>
+      </div>
+      <div class="modal-body">
+       <div class="m-5">
+        Voulez-vous supprimer <strong color="primary"> tous vos commandes ?</strong>
+       </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="relance()" mdbWavesEffect>Non</button>
+        <button type="button" mdbBtn color="danger" class="waves-light" aria-label="Close" aria-label="Close" (click)="supprimerPanier()"  mdbWavesEffect>Oui</button>
+      </div>
+    </div>
+  </div>
+</div>

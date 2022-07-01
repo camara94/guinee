@@ -1,0 +1,77 @@
+<div class="container" id="home">
+  <div class="row">
+    <div class="col-12">
+      <h5 class="text-center">Nombre d'annonces: <strong class="text-warning">{{recherche?.nombre}}</strong></h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card-body m-auto">
+        <div class="row">
+                <div class="col-sm-3 col-12" 
+                *ngFor="let produit of produitsSearch | slice: (page-1) * pageSize : page * pageSize">
+                    <div class="card shop-list border-0 position-relative overflow-hidden">
+                      <div class="shop-image position-relative overflow-hidden rounded shadow">
+                        <a [routerLink]="['produits/', produit._id]">
+                            <img src="{{baseURL + produit.images[0]}}"  class="img-fluid image img" alt="{{produit.nom}}"></a>
+                            <a [routerLink]="['/produits/', produit._id]" class="overlay-work">
+                                <img *ngIf="produit.images.length>1" src="{{baseURL + produit.images[1]}}" class="img-fluid image" alt="{{produit.designation}}">
+                                <img *ngIf="produit.images.length==1" src="{{baseURL + produit.images[0]}}" class="img-fluid image" alt="{{produit.designation}}">
+                              </a>
+                        <ul class="list-unstyled shop-icons">
+                          <li><a class="btn btn-icon btn-pills btn-soft-danger">
+                              <i-feather name="heart" class="icons"></i-feather>
+                            </a></li>
+                          <li class="mt-2"><a [routerLink]="['produits/', produit._id]" class="btn btn-icon btn-pills btn-soft-primary">
+                              <i-feather name="eye" class="icons"></i-feather>
+                            </a></li>
+                          <li class="mt-2"><a [routerLink]="['produits/', produit._id]" class="btn btn-icon btn-pills btn-soft-warning">
+                              <i-feather name="shopping-cart" class="icons"></i-feather>
+                            </a></li>
+                        </ul>
+                      </div>
+                      <div class="card-body content pt-4 p-2">
+                        <a routerLink="/shop-product-detail" class="text-dark product-name h6">{{produit.designation}}</a>
+                        <h6 class="text-muted small font-italic mb-0 mt-1 text-primary">Publié le{{' '}}{{produit.updatedAt | date:'dd/MM/yyyy'}}</h6>
+                        <div class="d-flex justify-content-between mt-1">
+                          <h6 class="text-muted small font-italic mb-0 mt-1">{{produit.prix | prix}} GNF<br><del class="text-danger">{{ (produit.prix + tva(produit)) | prix}} GNF</del>
+                          </h6><br>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+    
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-10 col-sm-8 offset-sm-4">
+                    <div *ngIf="produits.length>0">
+                        <ngb-pagination
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [collectionSize]="produitsSearch.length"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+      </div>
+
+      
+      
+    <div class="text-center mt-5" *ngIf="produitsSearch == null">
+      <div class="spinner-border text-warning" role="status">
+        <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+  <!-- Back to top -->
+  <a class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+  </a>
+  <!-- Back to top -->
+  
