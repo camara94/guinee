@@ -1,0 +1,128 @@
+.taille {
+    max-height: 150px;
+    height: 100px;
+    margin-bottom: 5px;
+}
+.bg-wrg {
+    background-color: #F07324;
+    color: floralwhite;
+}
+
+td {
+    text-align: left;
+    margin-left: 5px;
+    padding: 3px;
+    font-size: 1rem;
+}
+
+.apparence:hover {
+    color: #F07324;
+    text-decoration: underline;
+}
+
+/** */
+.searchbar{
+    margin-bottom: auto;
+    margin-top: 5px;
+    height: 40px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 5px;
+    width: 100%;
+    transition: width 4s ease-in-out 1s;
+}
+.searchbar:hover {
+    width: 100%;
+}
+
+    .search_input{
+        height: 30px;
+        width: 30px;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        caret-color:transparent;
+        line-height: 20px;
+        transition: width 2s linear 2s;
+    }
+
+/** **/
+.searchbar{
+    margin-bottom: auto;
+    margin-top: 5px;
+    height: 40px;
+    background-color: #353b48;
+    border-radius: 30px;
+    padding: 5px;
+    width: 60px;
+    transition: width 3s ease-in-out 0.5s;
+}
+.searchbar:hover {
+    width: 100%;
+}
+
+.search_input{
+        height: 30px;
+        width: 20px;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        border: 0;
+        outline: 0;
+        background: none;
+        width: 0;
+        caret-color:transparent;
+        line-height: 20px;
+        transition: width 2s linear 0.6s;
+}
+
+.searchbar:hover > .search_input{
+        height: 30px;
+        width: 30px;
+        float: left;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        width: 70%;
+        caret-color:red;
+        transition: width 2s linear;
+        margin-bottom: 5px;
+}
+
+.searchbar:hover > .search_icon{         
+background: white;
+color: #e74c3c;
+margin-bottom: 5px;
+}
+
+.search_icon{
+    height: 30px;
+    width: 30px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color:white;
+    text-decoration:none;
+}
+
+img {
+    object-fit: fill;
+    height: 150px;
+}
+
+.image{
+    object-fit: fill;
+    width: 100%;
+    height: 60vh;
+}

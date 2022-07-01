@@ -1,0 +1,114 @@
+<section class="container py-0" id="home" *ngIf="produits"> 
+	<div class="row mb-3 pb-2">
+		<div class="col-sm-12 col-md-3">
+				<table>
+					<tr *ngFor="let category of categories" class="apparence">
+						<td>
+							<a [routerLink]="['categories/', category._id]"><i [ngClass]="category.webIcon"></i></a>
+						</td>
+						<td>
+							<a [routerLink]="['categories/', category._id]">&nbsp;{{category.nom}}</a>
+						</td>
+					</tr>
+				</table>
+		</div>
+		
+		<div class="col-12 col-md-7 text-center">
+			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+				  <li *ngFor="let i of images" data-target="#carouselExampleIndicators" data-slide-to="{{i}}" class="active"></li>
+				</ol>
+				<div class="carousel-inner">
+				  
+				  <div [ngClass]="{'carousel-item': true, 'active': i==0}" *ngFor="let i of images">
+					<img class="d-block w-100 image" src="{{'assets/acceui/essai/' + i + '.jpg'}}" alt="Second slide">
+				  </div>
+				  
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+				  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				  <span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+				  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				  <span class="sr-only">Next</span>
+				</a>
+			  </div>
+		</div>
+		<div class="col-sm-12  col-md-2" *ngIf="produits.length>0">
+			<div class="card">
+				<img class="d-none d-sm-block" src="{{baseURL+produits[randomIndex].images[0]}}" alt="Card image cap">				
+				  <p class="card-text text-sm">{{produits[randomIndex].designation.substr(0, produits[randomIndex].designation.indexOf(" "))}}</p>
+			  </div>
+		</div>
+	</div>
+
+	<div class="card mb-3">
+		<div class="card-header bg-wrg m-0 p-1 py-0">
+			<h6 class="text-white text-center p-0 h6">Les Articles Récents</h6>
+		</div>
+		<div class="card-body" *ngIf="produits != null">
+			<div class="row">
+					<div class="col-12 col-md-3" 
+					*ngFor="let produit of produits | slice: (page-1) * pageSize : page * pageSize">
+						<div class="card shop-list border-0 position-relative overflow-hidden">
+						  <div class="shop-image position-relative overflow-hidden rounded shadow">
+							<a [routerLink]="['produits/', produit._id]">
+								<img src="{{baseURL + produit.images[0]}}"  class="img-fluid" alt="{{produit.nom}}"></a>
+								<a [routerLink]="['/produits/', produit._id]" class="overlay-work">
+									<img *ngIf="produit.images.length>1" src="{{baseURL + produit.images[1]}}" class="img-fluid" alt="{{produit.designation}}">
+									<img *ngIf="produit.images.length==1" src="{{baseURL + produit.images[0]}}" class="img-fluid" alt="{{produit.designation}}">
+								  </a>
+							<ul class="list-unstyled shop-icons">
+							  <li><a class="btn btn-icon btn-pills btn-soft-danger">
+								  <i-feather name="heart" class="icons"></i-feather>
+								</a></li>
+							  <li class="mt-2"><a [routerLink]="['produits/', produit._id]" class="btn btn-icon btn-pills btn-soft-primary">
+								  <i-feather name="eye" class="icons"></i-feather>
+								</a></li>
+							  <li class="mt-2"><a [routerLink]="['produits/', produit._id]" class="btn btn-icon btn-pills btn-soft-warning">
+								  <i-feather name="shopping-cart" class="icons"></i-feather>
+								</a></li>
+							</ul>
+						  </div>
+						  <div class="card-body content pt-4 p-2">
+							<a routerLink="/shop-product-detail" class="text-dark product-name h6">{{produit.designation}}</a>
+							<h6 class="text-muted small font-italic mb-0 mt-1 text-primary">Publié le{{' '}}{{produit.updatedAt | date:'dd/MM/yyyy'}}</h6>
+							<div class="d-flex justify-content-between mt-1">
+							  <h6 class="text-muted small font-italic mb-0 mt-1">{{produit.prix | prix}} GNF<br><del class="text-danger">{{ produit.prix + tva(produit) | prix}} GNF</del>
+							  </h6><br>
+							  
+							</div>
+						  </div>
+						</div>
+					</div>
+				</div>
+
+			<div class="container mt-3">
+				<div class="row">
+					<div class="col-10 col-sm-8 offset-sm-4">
+						<div *ngIf="produits.length>0">
+							<ngb-pagination
+							[(page)]="page"
+							[pageSize]="pageSize"
+							[collectionSize]="produits.length"></ngb-pagination>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	
+</section>
+
+<div class="text-center mt-5" *ngIf="produits.length==0 || produits == null">
+	<div class="spinner-border text-warning" role="status">
+		<span class="sr-only">Loading...</span>
+	  </div>
+</div>
+<!-- Back to top -->
+<a class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+[ngxScrollTo]="'#home'">
+<i-feather name="arrow-up" class="icons"></i-feather>
+</a>
+<!-- Back to top -->

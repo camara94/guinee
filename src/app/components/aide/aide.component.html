@@ -1,0 +1,53 @@
+
+
+  
+  <!-- About Start -->
+  <section class="section">
+    <div class="container">
+      <div class="row" *ngIf="aides">
+        <div class="col-12 col-sm-3" *ngFor="let aide of aides">
+          <div class="position-relative">
+            <img src="assets/logo/jeumakity.png" class="rounded img-fluid mx-auto d-block" alt="">
+            <div class="play-icon">
+              <a (click)="openWindowCustomClass(content)" class="play-btn video-play-icon">
+                <i class="mdi mdi-play text-primary rounded-circle bg-white shadow"></i>
+              </a>
+              <h6 class="mt-5 pt-3">{{aide.titre}}</h6>
+              <ng-template #content let-modal>
+                <div class="modal-header bg-warning">
+                  <h6 class="h6 text-center">{{aide.titre}}</h6>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe [src]="'https://www.youtube.com/embed/'+aide.lien | safe : 'resourceUrl'" height="850" width="780" frameborder="0"
+                    allowfullscreen allow="autoplay; encrypted-media"></iframe>
+                      </div>
+                  
+                </div>
+              </ng-template>
+  
+            </div>
+          </div>
+        </div>
+        <!--end col-->
+      </div>
+      <!--end row-->
+    </div>
+    <!--end container-->
+  
+    
+  </section>
+  <!--end section-->
+  <!-- About End -->
+  
+  
+  <!-- Back to top -->
+  <a href="javascript: void(0);" class="btn btn-icon btn-soft-primary back-to-top" id="back-to-top"
+    [ngxScrollTo]="'#home'">
+    <i-feather name="arrow-up" class="icons"></i-feather>
+  </a>
+  <!-- Back to top -->
+  
